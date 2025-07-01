@@ -16,7 +16,7 @@
 (defn input-strategy-set? []
   (if (System/getenv "INPUT_STRATEGY")
     (do
-      (println "WARNING: the action property `strategy` has been renamed `bump_version_scheme`. Support for `strategy` will be removed in the future. See the rymndhng/release-on-push-action README for the current configuration")
+      (println "WARNING: the action property `strategy` has been renamed `bump_version_scheme`. Support for `strategy` will be removed in the future. See the step-security/release-on-push-action README for the current configuration")
       true)
     false))
 
