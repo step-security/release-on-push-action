@@ -271,10 +271,3 @@ export INPUT_DRY_RUN=1
 make test
 make dryrun
 ```
-
-
-## Big Thanks To
-
-- shell-semver: https://github.com/fmahnke/shell-semver
-- https://github.com/mikeal/publish-to-github-action/
-- Inspiration: https://github.com/roomkey/lein-v
