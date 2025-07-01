@@ -44,7 +44,7 @@ outputs:
     description: 'Github Release Upload URL'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/amanstep/release-on-push-action@sha256:4f884f4b0250910a1a063ffac67fa6a02e2720346f59bd0c8597f42f5f454ee5'
 branding:
   icon: 'award'
   color: 'blue'
