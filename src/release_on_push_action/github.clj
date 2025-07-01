@@ -111,9 +111,9 @@
 
 (comment
   ;; used for testing
-  (def context {:repo "rymndhng/release-on-push-action"
+  (def context {:repo "step-security/release-on-push-action"
                 :github/api-url "https://api.github.com"
-                :sha "167c690247d0933acde636d72352bcd67e33724b"})
+                :sha "9273810ed77cd181294748d0cf8653f76a5db770"})
 
   ;; this should match
   ;; ❯ git log --oneline 7b6741..167c69

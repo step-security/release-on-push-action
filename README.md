@@ -36,7 +36,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           bump_version_scheme: minor
 ```
@@ -108,7 +108,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - id: release
-        uses: step-security/release-on-push-action@master
+        uses: step-security/release-on-push-action@v0
         with:
           bump_version_scheme: minor
           tag_prefix: v
@@ -138,7 +138,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           bump_version_scheme: minor
           release_body: "When set, adds extra text to body!"
@@ -166,7 +166,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           bump_version_scheme: minor
           use_github_release_notes: true
@@ -190,7 +190,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           tag_prefix: ""
 ```
@@ -216,7 +216,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           tag_prefix: "v"
           release_name: "Release <RELEASE_VERSION>"
@@ -238,7 +238,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: step-security/release-on-push-action@master
+      - uses: step-security/release-on-push-action@v0
         with:
           max_commits: 100
 ```
