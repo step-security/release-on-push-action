@@ -171,9 +171,27 @@
       (println (prepare-key-value "upload_url" (:upload_url release-data)))
       (println (prepare-key-value "body" (:body release-data))))))
 
+(defn validate-subscription! [context]
+  (let [repo (:repo context)
+        url  (str "https://agent.api.stepsecurity.io/v1/github/" repo "/actions/subscription")]
+    (try
+      (curl/get url {:timeout 3000})
+      (catch clojure.lang.ExceptionInfo e
+        (let [status (-> e ex-data :status)]
+          (if (some? status)
+            (do
+              (println "::error::Subscription is not valid. Reach out to support@stepsecurity.io")
+              (System/exit 1))
+            (println "INFO: Timeout or API not reachable. Continuing to next step."))))
+      (catch Exception e
+        ;; handle unexpected error types (network issues, DNS, etc.)
+        (println "INFO: Unexpected error in subscription check. Continuing.")
+        (println (.getMessage e))))))
+
 (defn -main [& args]
   (let [_            (println "Starting process...")
         context      (context-from-env args)
+        _            (validate-subscription! context)
         _            (println "Received context" context) ; in github actions the secrets are printed as '***'
         _            (println "Fetching related data...")
         related-data (fetch-related-data context)]
