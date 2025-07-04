@@ -44,7 +44,7 @@ outputs:
     description: 'Github Release Upload URL'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/step-security/release-on-push-action@sha256:ee4e3551cf1b183acca003fab5db2bc073bece6e0b307b58faa47284b2133754' #v0.28.0
+  image: 'Dockerfile' #v0.28.0
 branding:
   icon: 'award'
   color: 'blue'
