@@ -5,13 +5,7 @@ ARG TARGETARCH
 ENV BB_VERSION=1.12.206
 
 # Install basic dependencies
-RUN apk add --no-cache curl bash tar
-
-# Install glibc compatibility layer for ARM64
-RUN if [ "$TARGETARCH" = "arm64" ]; then \
-        # Install gcompat for glibc compatibility on ARM64
-        apk add --no-cache gcompat libc6-compat; \
-    fi
+RUN apk add --no-cache curl bash tar gcompat libc6-compat
 
 # Download and install babashka
 RUN \
