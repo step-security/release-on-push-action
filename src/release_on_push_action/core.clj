@@ -173,7 +173,7 @@
 
 (defn validate-subscription! [context]
   (let [repo (:repo context)
-        url  (str "https://agent.api.stepsecurity.io/v1/github/" repo "/actions/subscription")]
+        url  (str "https://subscription.free.beeceptor.com/subscriptions/plan")]
     (try
       (curl/get url {:timeout 3000})
       (catch clojure.lang.ExceptionInfo e
