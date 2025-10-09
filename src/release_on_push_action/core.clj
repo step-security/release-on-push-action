@@ -178,15 +178,15 @@
       (curl/get url {:timeout 3000})
       (catch clojure.lang.ExceptionInfo e
         (let [status (-> e ex-data :status)]
-          (if (some? status)
+          (if (= status 403)
             (do
               (println "::error::Subscription is not valid. Reach out to support@stepsecurity.io")
               (System/exit 1))
             (println "INFO: Timeout or API not reachable. Continuing to next step."))))
-      (catch Exception e
+      (catch Exception _
         ;; handle unexpected error types (network issues, DNS, etc.)
-        (println "INFO: Unexpected error in subscription check. Continuing.")
-        (println (.getMessage e))))))
+        (println "INFO: Timeout or API not reachable. Continuing to next step.")))))
+
 
 (defn -main [& args]
   (let [_            (println "Starting process...")
