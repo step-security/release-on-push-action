@@ -172,20 +172,43 @@
       (println (prepare-key-value "body" (:body release-data))))))
 
 (defn validate-subscription! [context]
-  (let [repo (:repo context)
-        url  (str "https://agent.api.stepsecurity.io/v1/github/" repo "/actions/subscription")]
-    (try
-      (curl/get url {:timeout 3000})
-      (catch clojure.lang.ExceptionInfo e
-        (let [status (-> e ex-data :status)]
-          (if (= status 403)
-            (do
-              (println "::error::Subscription is not valid. Reach out to support@stepsecurity.io")
-              (System/exit 1))
-            (println "INFO: Timeout or API not reachable. Continuing to next step."))))
-      (catch Exception _
-        ;; handle unexpected error types (network issues, DNS, etc.)
-        (println "INFO: Timeout or API not reachable. Continuing to next step.")))))
+  (let [event-path   (System/getenv "GITHUB_EVENT_PATH")
+        repo-private (when (and event-path (.exists (io/file event-path)))
+                       (try
+                         (get-in (json/parse-string (slurp event-path) true)
+                                 [:repository :private])
+                         (catch Exception _ nil)))
+        upstream     "rymndhng/release-on-push-action"
+        action       (System/getenv "GITHUB_ACTION_REPOSITORY")
+        docs-url     "https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions"]
+    (println "")
+    (println "[1;36mStepSecurity Maintained Action[0m")
+    (println (str "Secure drop-in replacement for " upstream))
+    (when (false? repo-private)
+      (println "[32m✓ Free for public repositories[0m"))
+    (println (str "[36mLearn more:[0m " docs-url))
+    (println "")
+    (when-not (false? repo-private)
+      (let [server-url (or (System/getenv "GITHUB_SERVER_URL") "https://github.com")
+            body       (cond-> {:action (or action "")}
+                         (not= server-url "https://github.com") (assoc :ghes_server server-url))
+            url        (str "https://agent.api.stepsecurity.io/v1/github/"
+                            (:repo context)
+                            "/actions/maintained-actions-subscription")]
+        (try
+          (curl/post url {:body    (json/generate-string body)
+                          :headers {"Content-Type" "application/json"}
+                          :timeout 3000})
+          (catch clojure.lang.ExceptionInfo e
+            (let [status (-> e ex-data :status)]
+              (if (= status 403)
+                (do
+                  (println "::error::[1;31mThis action requires a StepSecurity subscription for private repositories.[0m")
+                  (println (str "::error::[31mLearn how to enable a subscription: " docs-url "[0m"))
+                  (System/exit 1))
+                (println "Timeout or API not reachable. Continuing to next step."))))
+          (catch Exception _
+            (println "Timeout or API not reachable. Continuing to next step.")))))))
 
 
 (defn -main [& args]
