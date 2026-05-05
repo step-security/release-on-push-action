@@ -5,7 +5,7 @@ ARG TARGETARCH
 ENV BB_VERSION=1.12.206
 
 # Install basic dependencies
-RUN apk add --no-cache curl bash tar gcompat libc6-compat
+RUN apk add --no-cache curl bash tar gcompat libc6-compat && apk upgrade --no-cache zlib
 
 # Download and install babashka
 RUN \
