@@ -1,0 +1,18 @@
+{
+   "schema_version": "1",
+   "onboarding_type": "copied",
+   "archived": false,
+   "maintained_action_name": "step-security/release-on-push-action",
+   "upstream_full_repo_name": "rymndhng/release-on-push-action",
+   "action_type": "docker",
+   "last_release": {
+     "tag_name": "v0.28.6",
+     "created_at": "2026-05-05T10:36:47Z",
+     "published_at": "2026-05-06T01:20:33Z"
+   },
+   "sync": {
+     "ignore_presets": [
+       "defaults_v1"
+     ]
+   }
+ }
